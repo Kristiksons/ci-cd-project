@@ -1,0 +1,43 @@
+
+name: Calculator CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: TEST - Automated Tests
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Check Python
+        run: python3 --version
+
+      - name: Run automated tests
+        run: python3 -m unittest discover -s TEST/tests -v
+
+  deploy:
+    name: PROD - Deployment
+    needs: test
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Prepare production folder
+        run: |
+          mkdir -p PROD/release
+          cp DEV/ci-cd-project/calculator.py PROD/release/calculator.py
+
+      - name: Confirm deployment
+        run: |
+          echo "Calculator successfully deployed to PROD!"
+          ls -l PROD/release

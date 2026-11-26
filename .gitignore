@@ -1,0 +1,9 @@
+**/actions-runner/
+**/_work/
+*.tar.gz
+*.zip
+__pycache__/
+*.py[cod]
+.runner
+.credentials
+.credentials_rsaparams
