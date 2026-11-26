@@ -11,7 +11,7 @@ on:
 jobs:
   test:
     name: TEST - Automated Tests
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: [self-hosted, Linux, X64, test]
 
     steps:
       - name: Download repository
@@ -26,7 +26,7 @@ jobs:
   deploy:
     name: PROD - Deployment
     needs: test
-    runs-on: [self-hosted, Linux, X64]
+    runs-on: [self-hosted, Linux, X64, prod]
 
     steps:
       - name: Download repository
